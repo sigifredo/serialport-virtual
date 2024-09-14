@@ -2,18 +2,24 @@
 
 // Own
 #include <MainWindow.hpp>
+#include <ReadPortWidget.hpp>
 #include <VersionWidget.hpp>
 
 // Qt
 #include <QBoxLayout>
-#include <QFileInfo>
-#include <QLabel>
-#include <QMessageBox>
-#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *pParent)
     : QMainWindow(pParent)
 {
+    QWidget *pCentralWidget = new QWidget(this);
+    QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::TopToBottom, pCentralWidget);
+
+    ReadPortWidget *pReadPortWidget = new ReadPortWidget(pCentralWidget);
+
+    pLayout->addWidget(pReadPortWidget);
+
+    setCentralWidget(pCentralWidget);
+
     /*
     #if defined(Q_OS_WIN)
         setWindowIcon(QIcon(":/app-icons/serialport-gui.ico"));
