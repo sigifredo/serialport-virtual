@@ -31,11 +31,13 @@ set(PROJECT_SOURCES
     include/CreditsDialog.hpp
     include/MainWindow.hpp
     include/ReadPortWidget.hpp
+    include/SerialPort.hpp
     include/VersionWidget.hpp
     src/CreditsDialog.cpp
     src/main.cpp
     src/MainWindow.cpp
     src/ReadPortWidget.cpp
+    src/SerialPort.cpp
     src/VersionWidget.cpp
     ${RESOURCES}
     ${app_icon}

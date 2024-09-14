@@ -7,6 +7,7 @@
 
 class QLineEdit;
 class QPushButton;
+class QSerialPort;
 
 class ReadPortWidget : public QWidget
 {
@@ -21,6 +22,9 @@ protected slots:
 private:
     QLineEdit *_pSerialPath;
     QPushButton *_pOpenPortButton;
+    QSerialPort *_pSerialPort;
+
+    void configGUI();
 };
 
 #endif

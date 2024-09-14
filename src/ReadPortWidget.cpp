@@ -2,14 +2,29 @@
 
 // Own
 #include <ReadPortWidget.hpp>
+#include <SerialPort.hpp>
 
 // Qt
 #include <QBoxLayout>
+#include <QComboBox>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QTextEdit>
 
 ReadPortWidget::ReadPortWidget(QWidget *pParent) : QWidget(pParent)
+{
+    configGUI();
+
+    SerialPort *pSerialPort = new SerialPort(this);
+}
+
+void ReadPortWidget::openPort()
+{
+    _pOpenPortButton->setEnabled(false);
+    _pSerialPath->setEnabled(false);
+}
+
+void ReadPortWidget::configGUI()
 {
     QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
 
@@ -24,10 +39,4 @@ ReadPortWidget::ReadPortWidget(QWidget *pParent) : QWidget(pParent)
     pLayout->addWidget(pTextEdit);
     pLayout->addWidget(_pSerialPath);
     pLayout->addWidget(_pOpenPortButton);
-}
-
-void ReadPortWidget::openPort()
-{
-    _pOpenPortButton->setEnabled(false);
-    _pSerialPath->setEnabled(false);
 }
