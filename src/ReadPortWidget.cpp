@@ -37,6 +37,7 @@ void ReadPortWidget::timerEvent(QTimerEvent *pEvent)
 void ReadPortWidget::openPort()
 {
     _pOpenPortButton->setEnabled(false);
+    _pSerialPort->openPort();
 }
 
 void ReadPortWidget::portFound(const QString &sPath)

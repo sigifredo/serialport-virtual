@@ -19,6 +19,9 @@ public:
 
     void setPortName(const QString &sPortName);
 
+signals:
+    void dataRead(const QByteArray &data);
+
 private:
     QSerialPort *_pSerialPort;
 };
