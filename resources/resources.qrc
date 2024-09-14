@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>styles.qss</file>
+        <file>s9art.png</file>
+    </qresource>
+</RCC>

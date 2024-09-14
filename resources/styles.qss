@@ -1,0 +1,98 @@
+BionicWidget {
+    background-color: white;
+    border: 2px solid #dadbdf;
+    color: #212121;
+}
+
+MainWindow {
+    background-color: #f8f8f8;
+}
+
+MainWindow QLabel {
+    color: #6b717f;
+}
+
+MainWindow QLabel#fontSizeLabel {
+    font: 18pt;
+    text-align: center;
+}
+
+MainWindow QLabel#timer {
+    font: 24pt;
+}
+
+MainWindow QLabel#timer[active="true"] {
+    color: #803c3c;
+}
+
+MainWindow QPushButton {
+    background-color: #dadbdf;
+    color: #6b717f;
+    border: 2px solid #dadbdf;
+    padding: 5px 10px;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+}
+
+MainWindow QPushButton:hover {
+    background-color: #ccced3;
+    border-color: #ccced3;
+}
+
+MainWindow QPushButton:pressed {
+    background-color: #bfc0c7;
+    border-color: #bfc0c7;
+}
+
+MainWindow QPushButton:disabled {
+    background-color: #cccccc;
+    border-color: #cccccc;
+    color: #999999;
+}
+
+MainWindow QPushButton:focus {
+    outline: none;
+}
+
+MainWindow QScrollBar:vertical {
+    background-color: transparent;
+    border: 0;
+    width: 15px;
+}
+
+MainWindow QScrollBar::handle:vertical {
+    background-color: #dadbdf;
+    min-height: 20px;
+}
+
+MainWindow QScrollBar::add-line:vertical {
+    background-color: transparent;
+}
+
+MainWindow QScrollBar::sub-line:vertical {
+    background-color: transparent;
+}
+
+MainWindow QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+    background-color: transparent;
+    border: 0;
+}
+
+MainWindow QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    background-color: transparent;
+    border: 0;
+}
+
+VersionWidget QPushButton,
+VersionWidget QPushButton:hover,
+VersionWidget QPushButton:pressed,
+VersionWidget QPushButton:disabled {
+    background-color: transparent;
+    border: 0;
+}
+
+VersionWidget QPushButton {
+    font-size: 11px;
+    padding: 2px;
+}
