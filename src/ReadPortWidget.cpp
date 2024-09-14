@@ -7,15 +7,31 @@
 // Qt
 #include <QBoxLayout>
 #include <QComboBox>
+#include <QDebug>
 #include <QLabel>
 #include <QPushButton>
 #include <QTextEdit>
+#include <QTimerEvent>
 
 ReadPortWidget::ReadPortWidget(QWidget *pParent) : QWidget(pParent)
 {
     configGUI();
 
-    SerialPort *pSerialPort = new SerialPort(this);
+    _pSerialPort = new SerialPort(this);
+
+    startTimer(1000);
+}
+
+void ReadPortWidget::timerEvent(QTimerEvent *pEvent)
+{
+    killTimer(pEvent->timerId());
+
+    auto ports = _pSerialPort->availablePorts();
+
+    for (auto &portInfo : ports)
+    {
+        _pSerialsComboBox->addItem(portInfo.portName());
+    }
 }
 
 void ReadPortWidget::openPort()

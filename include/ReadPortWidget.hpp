@@ -8,6 +8,7 @@
 class QComboBox;
 class QPushButton;
 class QSerialPort;
+class SerialPort;
 
 class ReadPortWidget : public QWidget
 {
@@ -16,6 +17,9 @@ class ReadPortWidget : public QWidget
 public:
     ReadPortWidget(QWidget *pParent = nullptr);
 
+protected:
+    void timerEvent(QTimerEvent *pEvent) override;
+
 protected slots:
     void openPort();
     void portFound(const QString &sPath);
@@ -23,7 +27,7 @@ protected slots:
 private:
     QComboBox *_pSerialsComboBox;
     QPushButton *_pOpenPortButton;
-    QSerialPort *_pSerialPort;
+    SerialPort *_pSerialPort;
 
     void configGUI();
 };
