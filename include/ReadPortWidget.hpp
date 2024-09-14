@@ -5,7 +5,7 @@
 
 #include <QWidget>
 
-class QLineEdit;
+class QComboBox;
 class QPushButton;
 class QSerialPort;
 
@@ -18,9 +18,10 @@ public:
 
 protected slots:
     void openPort();
+    void portFound(const QString &sPath);
 
 private:
-    QLineEdit *_pSerialPath;
+    QComboBox *_pSerialsComboBox;
     QPushButton *_pOpenPortButton;
     QSerialPort *_pSerialPort;
 

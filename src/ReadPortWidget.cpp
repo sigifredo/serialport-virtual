@@ -7,7 +7,7 @@
 // Qt
 #include <QBoxLayout>
 #include <QComboBox>
-#include <QLineEdit>
+#include <QLabel>
 #include <QPushButton>
 #include <QTextEdit>
 
@@ -21,7 +21,11 @@ ReadPortWidget::ReadPortWidget(QWidget *pParent) : QWidget(pParent)
 void ReadPortWidget::openPort()
 {
     _pOpenPortButton->setEnabled(false);
-    _pSerialPath->setEnabled(false);
+}
+
+void ReadPortWidget::portFound(const QString &sPath)
+{
+    _pSerialsComboBox->addItem(sPath);
 }
 
 void ReadPortWidget::configGUI()
@@ -29,7 +33,18 @@ void ReadPortWidget::configGUI()
     QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
 
     QTextEdit *pTextEdit = new QTextEdit(this);
-    _pSerialPath = new QLineEdit("/dev/pts/6", this);
+
+    QWidget *pPortPathWidget = new QWidget(this);
+    {
+        QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pPortPathWidget);
+
+        QLabel *pPortLabel = new QLabel("Port:", pPortPathWidget);
+        _pSerialsComboBox = new QComboBox(pPortPathWidget);
+
+        pLayout->addWidget(pPortLabel);
+        pLayout->addWidget(_pSerialsComboBox);
+    }
+
     _pOpenPortButton = new QPushButton("&Conectar", this);
 
     pTextEdit->setReadOnly(true);
@@ -37,6 +52,6 @@ void ReadPortWidget::configGUI()
     connect(_pOpenPortButton, SIGNAL(clicked()), this, SLOT(openPort()));
 
     pLayout->addWidget(pTextEdit);
-    pLayout->addWidget(_pSerialPath);
+    pLayout->addWidget(pPortPathWidget);
     pLayout->addWidget(_pOpenPortButton);
 }
