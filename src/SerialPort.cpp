@@ -35,17 +35,20 @@ QList<QSerialPortInfo> SerialPort::availablePorts()
     return QSerialPortInfo::availablePorts();
 }
 
-void SerialPort::openPort()
+bool SerialPort::openPort()
 {
     if (_pSerialPort->open(QIODevice::ReadOnly))
     {
         qDebug() << QObject::tr("Se abre el puerto %1").arg(_pSerialPort->portName());
+        return true;
     }
     else
     {
         qCritical() << QObject::tr("No se puede abrir el puerto %1, error %2")
                            .arg(_pSerialPort->portName())
                            .arg(_pSerialPort->errorString());
+
+        return false;
     }
 }
 

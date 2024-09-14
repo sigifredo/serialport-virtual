@@ -5,7 +5,7 @@
 
 #include <QWidget>
 
-class QComboBox;
+class QLineEdit;
 class QPushButton;
 class QSerialPort;
 class SerialPort;
@@ -17,15 +17,11 @@ class ReadPortWidget : public QWidget
 public:
     ReadPortWidget(QWidget *pParent = nullptr);
 
-protected:
-    void timerEvent(QTimerEvent *pEvent) override;
-
 protected slots:
     void openPort();
-    void portFound(const QString &sPath);
 
 private:
-    QComboBox *_pSerialsComboBox;
+    QLineEdit *_pSerialPortLineEdit;
     QPushButton *_pOpenPortButton;
     SerialPort *_pSerialPort;
 
