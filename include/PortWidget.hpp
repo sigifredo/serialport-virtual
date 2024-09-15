@@ -17,10 +17,10 @@ public:
     PortWidget(QWidget *pParent = nullptr);
 
     void openPort();
-
-protected:
     SerialPort &serialPort();
 
+protected:
+    void closePort();
     virtual void dataRead(const QByteArray &data) = 0;
     bool openPort(const QString &sPortName, const SerialPort::OpenMode &openMode);
 

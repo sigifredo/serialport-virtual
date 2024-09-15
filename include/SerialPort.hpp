@@ -21,6 +21,7 @@ public:
     SerialPort(QObject *pParent = nullptr);
 
     QList<QSerialPortInfo> availablePorts();
+    void closePort();
     bool openPort(const OpenMode &openMode);
 
     void setPortName(const QString &sPortName);

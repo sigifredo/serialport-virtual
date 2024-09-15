@@ -14,6 +14,9 @@
 #include <QPushButton>
 #include <QTextEdit>
 
+#define CONNECT_TEXT "&Conectar"
+#define DISCONNECT_TEXT "&Desconectar"
+
 ReadPortWidget::ReadPortWidget(QWidget *pParent) : PortWidget(pParent)
 {
     configGUI();
@@ -48,18 +51,28 @@ void ReadPortWidget::configGUI()
 
     auto openSlot = [&]()
     {
-        _pOpenPortButton->setEnabled(false);
-        _pSerialPortLineEdit->setEnabled(false);
-
-        if (openPort(_pSerialPortLineEdit->text(), SerialPort::OpenMode::ReadOnly))
+        if (_pOpenPortButton->text() == CONNECT_TEXT)
         {
-            _pOpenPortButton->setEnabled(true);
-            _pOpenPortButton->setText("&Desconectar");
+            _pOpenPortButton->setEnabled(false);
+            _pSerialPortLineEdit->setEnabled(false);
+
+            if (openPort(_pSerialPortLineEdit->text(), SerialPort::OpenMode::ReadOnly))
+            {
+                _pOpenPortButton->setEnabled(true);
+                _pOpenPortButton->setText(DISCONNECT_TEXT);
+            }
+            else
+            {
+                _pOpenPortButton->setEnabled(true);
+                _pSerialPortLineEdit->setEnabled(true);
+            }
         }
         else
         {
-            _pOpenPortButton->setEnabled(true);
+            _pOpenPortButton->setText(CONNECT_TEXT);
             _pSerialPortLineEdit->setEnabled(true);
+
+            closePort();
         }
     };
 

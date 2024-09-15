@@ -18,11 +18,14 @@
 // std
 #include <random>
 
+#define CONNECT_TEXT "&Conectar"
+#define DISCONNECT_TEXT "&Desconectar"
+
 SendPortWidget::SendPortWidget(QWidget *pParent) : PortWidget(pParent)
 {
     configGUI();
 
-    _iTimerID = -1;
+    _iTimerID = 0;
 }
 
 void SendPortWidget::dataRead(const QByteArray &data)
@@ -88,26 +91,36 @@ void SendPortWidget::configGUI()
         pLayout->addWidget(pPortPathWidget);
     }
 
-    _pOpenPortButton = new QPushButton("&Conectar", _pControlsWidget);
+    _pOpenPortButton = new QPushButton(CONNECT_TEXT, _pControlsWidget);
 
     _pTextEdit->setReadOnly(true);
 
     auto openSlot = [&]()
     {
-        _pControlsWidget->setEnabled(false);
-        _pOpenPortButton->setEnabled(false);
-
-        if (openPort(_pSerialPortLineEdit->text(), SerialPort::OpenMode::WriteOnly))
+        if (_pOpenPortButton->text() == CONNECT_TEXT)
         {
-            _pOpenPortButton->setEnabled(true);
-            _pOpenPortButton->setText("&Desconectar");
+            _pControlsWidget->setEnabled(false);
+            _pOpenPortButton->setEnabled(false);
 
-            _iTimerID = startTimer(500);
+            if (openPort(_pSerialPortLineEdit->text(), SerialPort::OpenMode::WriteOnly))
+            {
+                _pOpenPortButton->setEnabled(true);
+                _pOpenPortButton->setText(DISCONNECT_TEXT);
+
+                _iTimerID = startTimer(500);
+            }
+            else
+            {
+                _pOpenPortButton->setEnabled(true);
+                _pControlsWidget->setEnabled(true);
+            }
         }
         else
         {
-            _pOpenPortButton->setEnabled(true);
+            _pOpenPortButton->setText(CONNECT_TEXT);
             _pControlsWidget->setEnabled(true);
+
+            closePort();
         }
     };
 

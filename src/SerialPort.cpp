@@ -34,6 +34,11 @@ QList<QSerialPortInfo> SerialPort::availablePorts()
     return QSerialPortInfo::availablePorts();
 }
 
+void SerialPort::closePort()
+{
+    _pSerialPort->close();
+}
+
 bool SerialPort::openPort(const OpenMode &openMode)
 {
     QIODevice::OpenModeFlag openModeFlag = QIODevice::OpenModeFlag::NotOpen;

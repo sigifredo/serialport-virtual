@@ -20,6 +20,11 @@ PortWidget::PortWidget(QWidget *pParent) : QWidget(pParent)
     connect(_pSerialPort, &SerialPort::dataRead, dataReadSlot);
 }
 
+void PortWidget::closePort()
+{
+    _pSerialPort->closePort();
+}
+
 bool PortWidget::openPort(const QString &sPortName, const SerialPort::OpenMode &openMode)
 {
     QString sPortPath = sPortName.trimmed();
