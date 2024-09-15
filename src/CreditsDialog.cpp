@@ -38,7 +38,7 @@ CreditsDialog::CreditsDialog(QWidget *pParent)
             QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pAboutTabWidget);
             QLabel *pDescriptionLabel = new QLabel(pAboutTabWidget);
 
-            QString sDescription = QString::fromUtf8(PROJECT_NAME " is a simple and efficient tool for reading and writing\ndata through a serial port. This software is distributed under the\nterms of the GNU General Public License.");
+            QString sDescription = QString::fromUtf8(PROJECT_NAME " is a simple tool for reading and writing\ndata through a serial port. This software is distributed under the\nterms of the GNU General Public License.");
             pDescriptionLabel->setText(sDescription);
 
             pLayout->addWidget(pDescriptionLabel);
@@ -61,7 +61,7 @@ CreditsDialog::CreditsDialog(QWidget *pParent)
 
             pLicenceTextEdit->setReadOnly(true);
             pLicenceTextEdit->setHtml(QString::fromUtf8(
-                "<strong>" PROJECT_NAME ":</strong> add short description here.<br>Copyright (C) 2024 Sigifredo Escobar Gómez<br><br>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br><br>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br><br>You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>."));
+                "<strong>" PROJECT_NAME ":</strong> is a simple tool for reading and writing data through a serial port.<br><br>This software is distributed under the terms of the GNU General Public License.<br>Copyright (C) 2024 Sigifredo Escobar Gómez<br><br>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br><br>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.<br><br>You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>."));
 
             pLayout->addWidget(pLicenceTextEdit);
         }
