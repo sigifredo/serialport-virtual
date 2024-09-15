@@ -38,7 +38,7 @@ CreditsDialog::CreditsDialog(QWidget *pParent)
             QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pAboutTabWidget);
             QLabel *pDescriptionLabel = new QLabel(pAboutTabWidget);
 
-            QString sDescription = QString::fromUtf8(PROJECT_NAME " is an application designed to... This software is distributed under the terms of the GNU\nGeneral Public License.");
+            QString sDescription = QString::fromUtf8(PROJECT_NAME " is a simple and efficient tool for reading and writing\ndata through a serial port. This software is distributed under the\nterms of the GNU General Public License.");
             pDescriptionLabel->setText(sDescription);
 
             pLayout->addWidget(pDescriptionLabel);
