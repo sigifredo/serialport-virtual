@@ -26,6 +26,7 @@ private:
     QLineEdit *_pSerialPortLineEdit;
     QPushButton *_pOpenPortButton;
     QTextEdit *_pTextEdit;
+    QWidget *_pControlsWidget;
     SerialPort *_pSerialPort;
 
     void configGUI();

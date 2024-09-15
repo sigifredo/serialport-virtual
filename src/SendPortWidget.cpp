@@ -36,16 +36,17 @@ void SendPortWidget::openPort()
     {
         if (QFile::exists(sPortPath))
         {
+            _pControlsWidget->setEnabled(false);
             _pOpenPortButton->setEnabled(false);
-            _pSerialPortLineEdit->setEnabled(false);
+
             _pSerialPort->setPortName(sPortPath);
 
             if (!_pSerialPort->openPort())
             {
                 QMessageBox::critical(this, "Error", "No se ha podido abrir el puerto serial.");
 
+                _pControlsWidget->setEnabled(true);
                 _pOpenPortButton->setEnabled(true);
-                _pSerialPortLineEdit->setEnabled(true);
             }
         }
         else
@@ -66,34 +67,42 @@ void SendPortWidget::configGUI()
     QLabel *pTitleLabel = new QLabel("<h2>Enviar</h2>", this);
     _pTextEdit = new QTextEdit(this);
 
-    QWidget *pRangeWidget = new QWidget(this);
+    _pControlsWidget = new QWidget(this);
     {
-        QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pRangeWidget);
+        QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::TopToBottom, _pControlsWidget);
 
-        QLabel *pRangeLabel = new QLabel("Rango", pRangeWidget);
-        QSpinBox *pRangeLeft = new QSpinBox(pRangeWidget);
-        QSpinBox *pRangeRight = new QSpinBox(pRangeWidget);
+        QWidget *pRangeWidget = new QWidget(_pControlsWidget);
+        {
+            QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pRangeWidget);
 
-        pRangeLeft->setMaximum(1000000);
-        pRangeRight->setMaximum(1000000);
+            QLabel *pRangeLabel = new QLabel("Rango", pRangeWidget);
+            QSpinBox *pRangeLeft = new QSpinBox(pRangeWidget);
+            QSpinBox *pRangeRight = new QSpinBox(pRangeWidget);
 
-        pLayout->addWidget(pRangeLabel);
-        pLayout->addWidget(pRangeLeft);
-        pLayout->addWidget(pRangeRight);
+            pRangeLeft->setMaximum(1000000);
+            pRangeRight->setMaximum(1000000);
+
+            pLayout->addWidget(pRangeLabel);
+            pLayout->addWidget(pRangeLeft);
+            pLayout->addWidget(pRangeRight);
+        }
+
+        QWidget *pPortPathWidget = new QWidget(_pControlsWidget);
+        {
+            QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pPortPathWidget);
+
+            QLabel *pPortLabel = new QLabel("Puerto:", pPortPathWidget);
+            _pSerialPortLineEdit = new QLineEdit("/dev/pts/6", pPortPathWidget);
+
+            pLayout->addWidget(pPortLabel);
+            pLayout->addWidget(_pSerialPortLineEdit);
+        }
+
+        pLayout->addWidget(pRangeWidget);
+        pLayout->addWidget(pPortPathWidget);
     }
 
-    QWidget *pPortPathWidget = new QWidget(this);
-    {
-        QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pPortPathWidget);
-
-        QLabel *pPortLabel = new QLabel("Puerto:", pPortPathWidget);
-        _pSerialPortLineEdit = new QLineEdit("/dev/pts/6", pPortPathWidget);
-
-        pLayout->addWidget(pPortLabel);
-        pLayout->addWidget(_pSerialPortLineEdit);
-    }
-
-    _pOpenPortButton = new QPushButton("&Conectar", this);
+    _pOpenPortButton = new QPushButton("&Conectar", _pControlsWidget);
 
     _pTextEdit->setReadOnly(true);
 
@@ -101,7 +110,6 @@ void SendPortWidget::configGUI()
 
     pLayout->addWidget(pTitleLabel);
     pLayout->addWidget(_pTextEdit);
-    pLayout->addWidget(pRangeWidget);
-    pLayout->addWidget(pPortPathWidget);
+    pLayout->addWidget(_pControlsWidget);
     pLayout->addWidget(_pOpenPortButton);
 }
