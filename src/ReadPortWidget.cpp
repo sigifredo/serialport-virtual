@@ -22,9 +22,13 @@ ReadPortWidget::ReadPortWidget(QWidget *pParent) : PortWidget(pParent)
     configGUI();
 }
 
-void ReadPortWidget::dataRead(const QByteArray &data)
+void ReadPortWidget::dataRead(const QString &sData)
 {
-    _pTextEdit->append(QString(data).trimmed());
+    QString sReceivedText = QString("[recibido] => \"")
+                                .append(sData)
+                                .append("\"");
+
+    _pTextEdit->append(sReceivedText);
 }
 
 void ReadPortWidget::configGUI()

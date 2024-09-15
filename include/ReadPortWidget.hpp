@@ -18,7 +18,7 @@ public:
     ReadPortWidget(QWidget *pParent = nullptr);
 
 protected:
-    void dataRead(const QByteArray &data) override;
+    void dataRead(const QString &sData) override;
 
 private:
     QLineEdit *_pSerialPortLineEdit;

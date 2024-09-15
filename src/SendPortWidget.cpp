@@ -28,9 +28,13 @@ SendPortWidget::SendPortWidget(QWidget *pParent) : PortWidget(pParent)
     _iTimerID = 0;
 }
 
-void SendPortWidget::dataRead(const QByteArray &data)
+void SendPortWidget::dataRead(const QString &sData)
 {
-    _pTextEdit->append(QString(data).trimmed());
+    QString sReceivedText = QString("[recibido] => \"")
+                                .append(sData)
+                                .append("\"");
+
+    _pTextEdit->append(sReceivedText);
 }
 
 void SendPortWidget::timerEvent(QTimerEvent *pEvent)
@@ -44,7 +48,14 @@ void SendPortWidget::timerEvent(QTimerEvent *pEvent)
         std::mt19937 gen(rd());
         std::uniform_int_distribution<> distrib(iLeft, iRight);
 
-        serialPort().write(QString::number(distrib(gen)).append("\n").toUtf8());
+        QString sRandomNumber = QString::number(distrib(gen));
+        QString sSentText = QString("[enviado] =>  \"")
+                                .append(sRandomNumber)
+                                .append("\"");
+
+        _pTextEdit->append(sSentText);
+
+        serialPort().write(sRandomNumber.append("\n").toUtf8());
     }
 }
 
@@ -117,6 +128,9 @@ void SendPortWidget::configGUI()
         }
         else
         {
+            killTimer(_iTimerID);
+            _iTimerID = 0;
+
             _pOpenPortButton->setText(CONNECT_TEXT);
             _pControlsWidget->setEnabled(true);
 

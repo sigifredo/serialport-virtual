@@ -14,7 +14,11 @@ PortWidget::PortWidget(QWidget *pParent) : QWidget(pParent)
 
     auto dataReadSlot = [&](const QByteArray &data)
     {
-        dataRead(data);
+        QString sData = QString(data)
+                            .trimmed()
+                            .replace("\n", " ");
+
+        dataRead(sData);
     };
 
     connect(_pSerialPort, &SerialPort::dataRead, dataReadSlot);

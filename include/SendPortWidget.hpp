@@ -19,7 +19,7 @@ public:
     SendPortWidget(QWidget *pParent = nullptr);
 
 protected:
-    void dataRead(const QByteArray &data) override;
+    void dataRead(const QString &sData) override;
     void timerEvent(QTimerEvent *pEvent) override;
 
 private:
