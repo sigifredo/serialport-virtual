@@ -7,17 +7,25 @@
 // Qt
 #include <QBoxLayout>
 #include <QDebug>
+#include <QFile>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QTextEdit>
-#include <QTimerEvent>
 
 ReadPortWidget::ReadPortWidget(QWidget *pParent) : QWidget(pParent)
 {
     configGUI();
 
     _pSerialPort = new SerialPort(this);
+
+    connect(_pSerialPort, SIGNAL(dataRead(const QByteArray &)), this, SLOT(dataRead(const QByteArray &)));
+}
+
+void ReadPortWidget::dataRead(const QByteArray &data)
+{
+    _pTextEdit->append(QString(data).trimmed());
 }
 
 void ReadPortWidget::openPort()
@@ -26,22 +34,28 @@ void ReadPortWidget::openPort()
 
     if (!sPortPath.isEmpty())
     {
-        _pOpenPortButton->setEnabled(false);
-        _pSerialPortLineEdit->setEnabled(false);
-
-        _pSerialPort->setPortName(sPortPath);
-
-        if (_pSerialPort->openPort())
+        if (QFile::exists(sPortPath))
         {
+            _pOpenPortButton->setEnabled(false);
+            _pSerialPortLineEdit->setEnabled(false);
+            _pSerialPort->setPortName(sPortPath);
+
+            if (!_pSerialPort->openPort())
+            {
+                QMessageBox::critical(this, "Error", "No se ha podido abrir el puerto serial.");
+
+                _pOpenPortButton->setEnabled(true);
+                _pSerialPortLineEdit->setEnabled(true);
+            }
         }
         else
         {
-            // TODO: mostrar mensaje de error
+            QMessageBox::critical(this, "Error", "El purto serial no existe.");
         }
     }
     else
     {
-        // TODO: mostrar mensaje de que el nombre del puerto está vacío
+        QMessageBox::critical(this, "Error", "No se ha establecido el puerto serial.");
     }
 }
 
@@ -49,14 +63,14 @@ void ReadPortWidget::configGUI()
 {
     QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
 
-    QTextEdit *pTextEdit = new QTextEdit(this);
+    _pTextEdit = new QTextEdit(this);
 
     QWidget *pPortPathWidget = new QWidget(this);
     {
         QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pPortPathWidget);
 
         QLabel *pPortLabel = new QLabel("Puerto:", pPortPathWidget);
-        _pSerialPortLineEdit = new QLineEdit(pPortPathWidget);
+        _pSerialPortLineEdit = new QLineEdit("/dev/pts/6", pPortPathWidget);
 
         pLayout->addWidget(pPortLabel);
         pLayout->addWidget(_pSerialPortLineEdit);
@@ -64,11 +78,11 @@ void ReadPortWidget::configGUI()
 
     _pOpenPortButton = new QPushButton("&Conectar", this);
 
-    pTextEdit->setReadOnly(true);
+    _pTextEdit->setReadOnly(true);
 
     connect(_pOpenPortButton, SIGNAL(clicked()), this, SLOT(openPort()));
 
-    pLayout->addWidget(pTextEdit);
+    pLayout->addWidget(_pTextEdit);
     pLayout->addWidget(pPortPathWidget);
     pLayout->addWidget(_pOpenPortButton);
 }

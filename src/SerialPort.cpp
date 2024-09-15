@@ -20,14 +20,12 @@ SerialPort::SerialPort(QObject *pParent)
     _pSerialPort->setStopBits(QSerialPort::OneStop);
     _pSerialPort->setFlowControl(QSerialPort::NoFlowControl);
 
-    auto slot = [&]()
+    auto readSlot = [&]()
     {
-        auto data = _pSerialPort->readAll();
-        emit dataRead(data);
-        qDebug() << "Datos recibidos: " << data;
+        emit dataRead(_pSerialPort->readAll());
     };
 
-    connect(_pSerialPort, &QSerialPort::readyRead, slot);
+    connect(_pSerialPort, &QSerialPort::readyRead, readSlot);
 }
 
 QList<QSerialPortInfo> SerialPort::availablePorts()
@@ -39,7 +37,6 @@ bool SerialPort::openPort()
 {
     if (_pSerialPort->open(QIODevice::ReadOnly))
     {
-        qDebug() << QObject::tr("Se abre el puerto %1").arg(_pSerialPort->portName());
         return true;
     }
     else
