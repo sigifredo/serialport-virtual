@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(SerialPort-GUI VERSION 0.0.1 LANGUAGES CXX)
+project(SerialPort-GUI VERSION 1.0.0 LANGUAGES CXX)
 
 include(config/build.cmake)
 
