@@ -71,7 +71,7 @@ void ReadPortWidget::configGUI()
         QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pPortPathWidget);
 
         QLabel *pPortLabel = new QLabel("Puerto:", pPortPathWidget);
-        _pSerialPortLineEdit = new QLineEdit("/dev/pts/6", pPortPathWidget);
+        _pSerialPortLineEdit = new QLineEdit("/dev/pts/5", pPortPathWidget);
 
         pLayout->addWidget(pPortLabel);
         pLayout->addWidget(_pSerialPortLineEdit);

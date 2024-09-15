@@ -6,12 +6,12 @@
 
 // Qt
 #include <QBoxLayout>
-#include <QDebug>
 #include <QFile>
 #include <QLabel>
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QSpinBox>
 #include <QTextEdit>
 
 SendPortWidget::SendPortWidget(QWidget *pParent) : QWidget(pParent)
@@ -66,6 +66,22 @@ void SendPortWidget::configGUI()
     QLabel *pTitleLabel = new QLabel("<h2>Enviar</h2>", this);
     _pTextEdit = new QTextEdit(this);
 
+    QWidget *pRangeWidget = new QWidget(this);
+    {
+        QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pRangeWidget);
+
+        QLabel *pRangeLabel = new QLabel("Rango", pRangeWidget);
+        QSpinBox *pRangeLeft = new QSpinBox(pRangeWidget);
+        QSpinBox *pRangeRight = new QSpinBox(pRangeWidget);
+
+        pRangeLeft->setMaximum(1000000);
+        pRangeRight->setMaximum(1000000);
+
+        pLayout->addWidget(pRangeLabel);
+        pLayout->addWidget(pRangeLeft);
+        pLayout->addWidget(pRangeRight);
+    }
+
     QWidget *pPortPathWidget = new QWidget(this);
     {
         QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pPortPathWidget);
@@ -85,6 +101,7 @@ void SendPortWidget::configGUI()
 
     pLayout->addWidget(pTitleLabel);
     pLayout->addWidget(_pTextEdit);
+    pLayout->addWidget(pRangeWidget);
     pLayout->addWidget(pPortPathWidget);
     pLayout->addWidget(_pOpenPortButton);
 }
