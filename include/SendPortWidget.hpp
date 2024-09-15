@@ -7,7 +7,6 @@
 
 class QLineEdit;
 class QPushButton;
-class QSerialPort;
 class QSpinBox;
 class QTextEdit;
 
@@ -24,12 +23,12 @@ protected:
 
 private:
     int _iTimerID;
-    QLineEdit *_pSerialPortLineEdit;
+    QWidget *_pControlsWidget;
     QPushButton *_pOpenPortButton;
     QSpinBox *_pRangeLeft;
     QSpinBox *_pRangeRight;
+    QLineEdit *_pSerialPortLineEdit;
     QTextEdit *_pTextEdit;
-    QWidget *_pControlsWidget;
 
     void configGUI();
 };

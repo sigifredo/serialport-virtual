@@ -6,10 +6,8 @@
 
 // Qt
 #include <QBoxLayout>
-#include <QFile>
 #include <QLabel>
 #include <QLineEdit>
-#include <QMessageBox>
 #include <QPushButton>
 #include <QSpinBox>
 #include <QTextEdit>

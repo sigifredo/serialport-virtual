@@ -5,10 +5,7 @@
 
 // Qt
 #include <QDebug>
-#include <QIODevice>
 #include <QSerialPort>
-#include <QSerialPortInfo>
-#include <QTextStream>
 
 SerialPort::SerialPort(QObject *pParent)
     : QObject(pParent)
@@ -27,11 +24,6 @@ SerialPort::SerialPort(QObject *pParent)
     };
 
     connect(_pSerialPort, &QSerialPort::readyRead, readSlot);
-}
-
-QList<QSerialPortInfo> SerialPort::availablePorts()
-{
-    return QSerialPortInfo::availablePorts();
 }
 
 void SerialPort::closePort()

@@ -4,7 +4,6 @@
 #define SERIALPORT_HPP
 
 #include <QObject>
-#include <QSerialPortInfo>
 
 class QSerialPort;
 
@@ -20,7 +19,6 @@ public:
 
     SerialPort(QObject *pParent = nullptr);
 
-    QList<QSerialPortInfo> availablePorts();
     void closePort();
     bool openPort(const OpenMode &openMode);
 

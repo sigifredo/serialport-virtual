@@ -31,7 +31,6 @@ set(PROJECT_SOURCES
     include/CreditsDialog.hpp
     include/MainWindow.hpp
     include/PortWidget.hpp
-    include/Range.hpp
     include/ReadPortWidget.hpp
     include/SendPortWidget.hpp
     include/SerialPort.hpp
@@ -40,7 +39,6 @@ set(PROJECT_SOURCES
     src/main.cpp
     src/MainWindow.cpp
     src/PortWidget.cpp
-    src/Range.cpp
     src/ReadPortWidget.cpp
     src/SendPortWidget.cpp
     src/SerialPort.cpp

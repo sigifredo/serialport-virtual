@@ -7,7 +7,6 @@
 
 class QLineEdit;
 class QPushButton;
-class QSerialPort;
 class QTextEdit;
 
 class ReadPortWidget : public PortWidget
@@ -21,8 +20,8 @@ protected:
     void dataRead(const QString &sData) override;
 
 private:
-    QLineEdit *_pSerialPortLineEdit;
     QPushButton *_pOpenPortButton;
+    QLineEdit *_pSerialPortLineEdit;
     QTextEdit *_pTextEdit;
 
     void configGUI();
