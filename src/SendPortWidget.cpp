@@ -1,7 +1,7 @@
 
 
 // Own
-#include <ReadPortWidget.hpp>
+#include <SendPortWidget.hpp>
 #include <SerialPort.hpp>
 
 // Qt
@@ -14,7 +14,7 @@
 #include <QPushButton>
 #include <QTextEdit>
 
-ReadPortWidget::ReadPortWidget(QWidget *pParent) : QWidget(pParent)
+SendPortWidget::SendPortWidget(QWidget *pParent) : QWidget(pParent)
 {
     configGUI();
 
@@ -23,12 +23,12 @@ ReadPortWidget::ReadPortWidget(QWidget *pParent) : QWidget(pParent)
     connect(_pSerialPort, SIGNAL(dataRead(const QByteArray &)), this, SLOT(dataRead(const QByteArray &)));
 }
 
-void ReadPortWidget::dataRead(const QByteArray &data)
+void SendPortWidget::dataRead(const QByteArray &data)
 {
     _pTextEdit->append(QString(data).trimmed());
 }
 
-void ReadPortWidget::openPort()
+void SendPortWidget::openPort()
 {
     QString sPortPath = _pSerialPortLineEdit->text().trimmed();
 
@@ -59,11 +59,11 @@ void ReadPortWidget::openPort()
     }
 }
 
-void ReadPortWidget::configGUI()
+void SendPortWidget::configGUI()
 {
     QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
 
-    QLabel *pTitleLabel = new QLabel("<h2>Leer</h2>", this);
+    QLabel *pTitleLabel = new QLabel("<h2>Enviar</h2>", this);
     _pTextEdit = new QTextEdit(this);
 
     QWidget *pPortPathWidget = new QWidget(this);

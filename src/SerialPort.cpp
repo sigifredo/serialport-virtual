@@ -14,7 +14,7 @@ SerialPort::SerialPort(QObject *pParent)
 {
     _pSerialPort = new QSerialPort(this);
 
-    _pSerialPort->setBaudRate(QSerialPort::Baud9600); // Velocidad
+    _pSerialPort->setBaudRate(QSerialPort::Baud9600);
     _pSerialPort->setDataBits(QSerialPort::Data8);
     _pSerialPort->setParity(QSerialPort::NoParity);
     _pSerialPort->setStopBits(QSerialPort::OneStop);
