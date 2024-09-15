@@ -5,6 +5,7 @@
 
 // Qt
 #include <QDebug>
+#include <QIODevice>
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QTextStream>
@@ -33,9 +34,20 @@ QList<QSerialPortInfo> SerialPort::availablePorts()
     return QSerialPortInfo::availablePorts();
 }
 
-bool SerialPort::openPort()
+bool SerialPort::openPort(const OpenMode &openMode)
 {
-    if (_pSerialPort->open(QIODevice::ReadOnly))
+    QIODevice::OpenModeFlag openModeFlag = QIODevice::OpenModeFlag::NotOpen;
+
+    if (openMode == OpenMode::ReadOnly)
+    {
+        openModeFlag = QIODevice::OpenModeFlag::ReadOnly;
+    }
+    else if (openMode == OpenMode::WriteOnly)
+    {
+        openModeFlag = QIODevice::OpenModeFlag::WriteOnly;
+    }
+
+    if (_pSerialPort->open(openModeFlag))
     {
         return true;
     }

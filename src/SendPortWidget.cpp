@@ -14,50 +14,16 @@
 #include <QSpinBox>
 #include <QTextEdit>
 
-SendPortWidget::SendPortWidget(QWidget *pParent) : QWidget(pParent)
+SendPortWidget::SendPortWidget(QWidget *pParent) : PortWidget(pParent)
 {
     configGUI();
 
-    _pSerialPort = new SerialPort(this);
-
-    connect(_pSerialPort, SIGNAL(dataRead(const QByteArray &)), this, SLOT(dataRead(const QByteArray &)));
+    // connect(_pSerialPort, SIGNAL(dataRead(const QByteArray &)), this, SLOT(dataRead(const QByteArray &)));
 }
 
 void SendPortWidget::dataRead(const QByteArray &data)
 {
     _pTextEdit->append(QString(data).trimmed());
-}
-
-void SendPortWidget::openPort()
-{
-    QString sPortPath = _pSerialPortLineEdit->text().trimmed();
-
-    if (!sPortPath.isEmpty())
-    {
-        if (QFile::exists(sPortPath))
-        {
-            _pControlsWidget->setEnabled(false);
-            _pOpenPortButton->setEnabled(false);
-
-            _pSerialPort->setPortName(sPortPath);
-
-            if (!_pSerialPort->openPort())
-            {
-                QMessageBox::critical(this, "Error", "No se ha podido abrir el puerto serial.");
-
-                _pControlsWidget->setEnabled(true);
-                _pOpenPortButton->setEnabled(true);
-            }
-        }
-        else
-        {
-            QMessageBox::critical(this, "Error", "El purto serial no existe.");
-        }
-    }
-    else
-    {
-        QMessageBox::critical(this, "Error", "No se ha establecido el puerto serial.");
-    }
 }
 
 void SendPortWidget::configGUI()

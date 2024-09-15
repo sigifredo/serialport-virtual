@@ -3,15 +3,14 @@
 #ifndef READPORTWIDGET_HPP
 #define READPORTWIDGET_HPP
 
-#include <QWidget>
+#include <PortWidget.hpp>
 
 class QLineEdit;
 class QPushButton;
 class QSerialPort;
 class QTextEdit;
-class SerialPort;
 
-class ReadPortWidget : public QWidget
+class ReadPortWidget : public PortWidget
 {
     Q_OBJECT
 
@@ -20,13 +19,11 @@ public:
 
 protected slots:
     void dataRead(const QByteArray &data);
-    void openPort();
 
 private:
     QLineEdit *_pSerialPortLineEdit;
     QPushButton *_pOpenPortButton;
     QTextEdit *_pTextEdit;
-    SerialPort *_pSerialPort;
 
     void configGUI();
 };

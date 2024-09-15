@@ -3,15 +3,14 @@
 #ifndef SENDPORTWIDGET_HPP
 #define SENDPORTWIDGET_HPP
 
-#include <QWidget>
+#include <PortWidget.hpp>
 
 class QLineEdit;
 class QPushButton;
 class QSerialPort;
 class QTextEdit;
-class SerialPort;
 
-class SendPortWidget : public QWidget
+class SendPortWidget : public PortWidget
 {
     Q_OBJECT
 
@@ -20,14 +19,12 @@ public:
 
 protected slots:
     void dataRead(const QByteArray &data);
-    void openPort();
 
 private:
     QLineEdit *_pSerialPortLineEdit;
     QPushButton *_pOpenPortButton;
     QTextEdit *_pTextEdit;
     QWidget *_pControlsWidget;
-    SerialPort *_pSerialPort;
 
     void configGUI();
 };

@@ -12,10 +12,16 @@ class SerialPort : public QObject
 {
     Q_OBJECT
 public:
+    enum OpenMode
+    {
+        ReadOnly,
+        WriteOnly
+    };
+
     SerialPort(QObject *pParent = nullptr);
 
     QList<QSerialPortInfo> availablePorts();
-    bool openPort();
+    bool openPort(const OpenMode &openMode);
 
     void setPortName(const QString &sPortName);
 
