@@ -57,7 +57,7 @@ bool PortWidget::openPort(const QString &sPortName, const SerialPort::OpenMode &
         }
         else
         {
-            QMessageBox::critical(this, "Error", "El purto serial no existe.");
+            QMessageBox::critical(this, "Error", "El puerto serial no existe.");
             return false;
         }
     }

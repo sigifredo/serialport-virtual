@@ -61,7 +61,10 @@ void SendPortWidget::configGUI()
 {
     QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::TopToBottom, this);
 
-    QLabel *pTitleLabel = new QLabel("<h2>Enviar</h2>", this);
+    QLabel *pTitleLabel = new QLabel("Enviar", this);
+
+    pTitleLabel->setObjectName("title");
+    pTitleLabel->setAlignment(Qt::AlignCenter);
     _pTextEdit = new QTextEdit(this);
 
     _pControlsWidget = new QWidget(this);

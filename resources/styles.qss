@@ -1,28 +1,27 @@
-BionicWidget {
-    background-color: white;
-    border: 2px solid #dadbdf;
-    color: #212121;
-}
-
 MainWindow {
     background-color: #f8f8f8;
 }
 
 MainWindow QLabel {
     color: #6b717f;
+    font-size: 14px;
 }
 
-MainWindow QLabel#fontSizeLabel {
-    font: 18pt;
+MainWindow QLabel#title {
+    font: 14pt;
+    font-weight: bold;
     text-align: center;
 }
 
-MainWindow QLabel#timer {
-    font: 24pt;
-}
-
-MainWindow QLabel#timer[active="true"] {
-    color: #803c3c;
+MainWindow QLineEdit,
+MainWindow QTextEdit,
+MainWindow QSpinBox {
+    background-color: #ffffff;
+    border: 2px solid #dadbdf;
+    border-radius: 0;
+    color: #6b717f;
+    font-size: 14px;
+    padding: 5px 10px;
 }
 
 MainWindow QPushButton {
