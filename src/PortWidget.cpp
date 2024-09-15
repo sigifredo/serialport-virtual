@@ -8,6 +8,12 @@
 #include <QFile>
 #include <QMessageBox>
 
+#ifdef Q_OS_WIN
+#define fileExist(X) true
+#else
+#define fileExist(X) QFile::exists(X)
+#endif
+
 PortWidget::PortWidget(QWidget *pParent) : QWidget(pParent)
 {
     _pSerialPort = new SerialPort(this);
@@ -40,7 +46,7 @@ bool PortWidget::openPort(const QString &sPortName, const SerialPort::OpenMode &
     }
     else
     {
-        if (QFile::exists(sPortPath))
+        if (fileExist(sPortPath))
         {
             _pSerialPort->setPortName(sPortPath);
 

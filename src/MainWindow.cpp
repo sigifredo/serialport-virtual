@@ -19,11 +19,11 @@ MainWindow::MainWindow(QWidget *pParent)
     {
         QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pSerialWidget);
 
-        ReadPortWidget *pReadPortWidget = new ReadPortWidget(pSerialWidget);
         SendPortWidget *pSendPortWidget = new SendPortWidget(pSerialWidget);
+        ReadPortWidget *pReadPortWidget = new ReadPortWidget(pSerialWidget);
 
-        pLayout->addWidget(pReadPortWidget);
         pLayout->addWidget(pSendPortWidget);
+        pLayout->addWidget(pReadPortWidget);
     }
     VersionWidget *pVersionWidget = new VersionWidget(pCentralWidget);
 

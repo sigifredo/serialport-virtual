@@ -86,12 +86,12 @@ MainWindow QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
 }
 
 MainWindow QSpinBox::down-button {
-    background: #ffffff;
+    background: transparent;
     image: none;
 }
 
 MainWindow QSpinBox::up-button {
-    background: #ffffff;
+    background: transparent;
     image: none;
 }
 

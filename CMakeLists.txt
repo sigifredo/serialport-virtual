@@ -47,6 +47,10 @@ set(PROJECT_SOURCES
     ${app_icon}
 )
 
+if(${CMAKE_HOST_SYSTEM} MATCHES "Windows")
+	LIST(APPEND PROJECT_SOURCES resources/window.rc)
+endif()
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(serialport-gui
         MANUAL_FINALIZATION
