@@ -18,7 +18,12 @@
 
 #define CONNECT_TEXT "&Conectar"
 #define DISCONNECT_TEXT "&Desconectar"
+
+#ifdef DEBUG_BUILD
 #define PORT_NAME "/dev/pts/6"
+#else
+#define PORT_NAME ""
+#endif
 
 SendPortWidget::SendPortWidget(QWidget *pParent) : PortWidget(pParent)
 {

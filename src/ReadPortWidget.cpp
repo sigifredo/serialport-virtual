@@ -13,7 +13,12 @@
 
 #define CONNECT_TEXT "&Conectar"
 #define DISCONNECT_TEXT "&Desconectar"
+
+#ifdef DEBUG_BUILD
 #define PORT_NAME "/dev/pts/5"
+#else
+#define PORT_NAME ""
+#endif
 
 ReadPortWidget::ReadPortWidget(QWidget *pParent) : PortWidget(pParent)
 {
