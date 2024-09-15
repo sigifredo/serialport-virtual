@@ -17,6 +17,8 @@
 ReadPortWidget::ReadPortWidget(QWidget *pParent) : PortWidget(pParent)
 {
     configGUI();
+
+    connect(&serialPort(), SIGNAL(dataRead(const QByteArray &)), this, SLOT(dataRead(const QByteArray &)));
 }
 
 void ReadPortWidget::dataRead(const QByteArray &data)
@@ -46,7 +48,24 @@ void ReadPortWidget::configGUI()
 
     _pTextEdit->setReadOnly(true);
 
-    connect(_pOpenPortButton, SIGNAL(clicked()), this, SLOT(openPort()));
+    auto openSlot = [&]()
+    {
+        _pOpenPortButton->setEnabled(false);
+        _pSerialPortLineEdit->setEnabled(false);
+
+        if (openPort(_pSerialPortLineEdit->text(), SerialPort::OpenMode::ReadOnly))
+        {
+            _pOpenPortButton->setEnabled(true);
+            _pOpenPortButton->setText("&Desconectar");
+        }
+        else
+        {
+            _pOpenPortButton->setEnabled(true);
+            _pSerialPortLineEdit->setEnabled(true);
+        }
+    };
+
+    connect(_pOpenPortButton, &QPushButton::clicked, openSlot);
 
     pLayout->addWidget(pTitleLabel);
     pLayout->addWidget(_pTextEdit);

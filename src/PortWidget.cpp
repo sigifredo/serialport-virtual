@@ -11,18 +11,23 @@
 PortWidget::PortWidget(QWidget *pParent) : QWidget(pParent)
 {
     _pSerialPort = new SerialPort(this);
-
-    // connect(_pSerialPort, SIGNAL(dataRead(const QByteArray &)), this, SLOT(dataRead(const QByteArray &)));
 }
 
 bool PortWidget::openPort(const QString &sPortName, const SerialPort::OpenMode &openMode)
 {
     QString sPortPath = sPortName.trimmed();
 
-    if (!sPortPath.isEmpty())
+    if (sPortPath.isEmpty())
+    {
+        QMessageBox::critical(this, "Error", "No se ha establecido el puerto serial.");
+        return false;
+    }
+    else
     {
         if (QFile::exists(sPortPath))
         {
+            _pSerialPort->setPortName(sPortPath);
+
             if (_pSerialPort->openPort(openMode))
             {
                 return true;
@@ -39,11 +44,6 @@ bool PortWidget::openPort(const QString &sPortName, const SerialPort::OpenMode &
             QMessageBox::critical(this, "Error", "El purto serial no existe.");
             return false;
         }
-    }
-    else
-    {
-        QMessageBox::critical(this, "Error", "No se ha establecido el puerto serial.");
-        return false;
     }
 }
 
