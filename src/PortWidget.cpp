@@ -11,6 +11,13 @@
 PortWidget::PortWidget(QWidget *pParent) : QWidget(pParent)
 {
     _pSerialPort = new SerialPort(this);
+
+    auto dataReadSlot = [&](const QByteArray &data)
+    {
+        dataRead(data);
+    };
+
+    connect(_pSerialPort, &SerialPort::dataRead, dataReadSlot);
 }
 
 bool PortWidget::openPort(const QString &sPortName, const SerialPort::OpenMode &openMode)

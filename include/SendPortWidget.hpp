@@ -8,6 +8,7 @@
 class QLineEdit;
 class QPushButton;
 class QSerialPort;
+class QSpinBox;
 class QTextEdit;
 
 class SendPortWidget : public PortWidget
@@ -17,12 +18,16 @@ class SendPortWidget : public PortWidget
 public:
     SendPortWidget(QWidget *pParent = nullptr);
 
-protected slots:
-    void dataRead(const QByteArray &data);
+protected:
+    void dataRead(const QByteArray &data) override;
+    void timerEvent(QTimerEvent *pEvent) override;
 
 private:
+    int _iTimerID;
     QLineEdit *_pSerialPortLineEdit;
     QPushButton *_pOpenPortButton;
+    QSpinBox *_pRangeLeft;
+    QSpinBox *_pRangeRight;
     QTextEdit *_pTextEdit;
     QWidget *_pControlsWidget;
 

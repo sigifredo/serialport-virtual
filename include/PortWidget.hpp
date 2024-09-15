@@ -21,7 +21,7 @@ public:
 protected:
     SerialPort &serialPort();
 
-    void dataRead(const QByteArray &data);
+    virtual void dataRead(const QByteArray &data) = 0;
     bool openPort(const QString &sPortName, const SerialPort::OpenMode &openMode);
 
 private:

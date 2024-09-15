@@ -17,8 +17,6 @@
 ReadPortWidget::ReadPortWidget(QWidget *pParent) : PortWidget(pParent)
 {
     configGUI();
-
-    connect(&serialPort(), SIGNAL(dataRead(const QByteArray &)), this, SLOT(dataRead(const QByteArray &)));
 }
 
 void ReadPortWidget::dataRead(const QByteArray &data)

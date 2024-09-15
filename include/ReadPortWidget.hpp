@@ -17,8 +17,8 @@ class ReadPortWidget : public PortWidget
 public:
     ReadPortWidget(QWidget *pParent = nullptr);
 
-protected slots:
-    void dataRead(const QByteArray &data);
+protected:
+    void dataRead(const QByteArray &data) override;
 
 private:
     QLineEdit *_pSerialPortLineEdit;

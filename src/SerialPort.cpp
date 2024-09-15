@@ -65,3 +65,8 @@ void SerialPort::setPortName(const QString &sPortName)
 {
     _pSerialPort->setPortName(sPortName);
 }
+
+qint64 SerialPort::write(const QByteArray &data)
+{
+    return _pSerialPort->write(data);
+}

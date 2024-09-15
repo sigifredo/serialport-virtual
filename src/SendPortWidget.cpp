@@ -13,17 +13,36 @@
 #include <QPushButton>
 #include <QSpinBox>
 #include <QTextEdit>
+#include <QTimerEvent>
+
+// std
+#include <random>
 
 SendPortWidget::SendPortWidget(QWidget *pParent) : PortWidget(pParent)
 {
     configGUI();
 
-    // connect(_pSerialPort, SIGNAL(dataRead(const QByteArray &)), this, SLOT(dataRead(const QByteArray &)));
+    _iTimerID = -1;
 }
 
 void SendPortWidget::dataRead(const QByteArray &data)
 {
     _pTextEdit->append(QString(data).trimmed());
+}
+
+void SendPortWidget::timerEvent(QTimerEvent *pEvent)
+{
+    if (pEvent->timerId() == _iTimerID)
+    {
+        int iLeft = _pRangeLeft->value();
+        int iRight = _pRangeRight->value();
+
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_int_distribution<> distrib(iLeft, iRight);
+
+        serialPort().write(QString::number(distrib(gen)).append("\n").toUtf8());
+    }
 }
 
 void SendPortWidget::configGUI()
@@ -42,15 +61,16 @@ void SendPortWidget::configGUI()
             QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pRangeWidget);
 
             QLabel *pRangeLabel = new QLabel("Rango", pRangeWidget);
-            QSpinBox *pRangeLeft = new QSpinBox(pRangeWidget);
-            QSpinBox *pRangeRight = new QSpinBox(pRangeWidget);
+            _pRangeLeft = new QSpinBox(pRangeWidget);
+            _pRangeRight = new QSpinBox(pRangeWidget);
 
-            pRangeLeft->setMaximum(1000000);
-            pRangeRight->setMaximum(1000000);
+            _pRangeLeft->setMaximum(1000000);
+            _pRangeRight->setMaximum(1000000);
+            _pRangeRight->setValue(1000);
 
             pLayout->addWidget(pRangeLabel);
-            pLayout->addWidget(pRangeLeft);
-            pLayout->addWidget(pRangeRight);
+            pLayout->addWidget(_pRangeLeft);
+            pLayout->addWidget(_pRangeRight);
         }
 
         QWidget *pPortPathWidget = new QWidget(_pControlsWidget);
@@ -72,7 +92,26 @@ void SendPortWidget::configGUI()
 
     _pTextEdit->setReadOnly(true);
 
-    connect(_pOpenPortButton, SIGNAL(clicked()), this, SLOT(openPort()));
+    auto openSlot = [&]()
+    {
+        _pControlsWidget->setEnabled(false);
+        _pOpenPortButton->setEnabled(false);
+
+        if (openPort(_pSerialPortLineEdit->text(), SerialPort::OpenMode::WriteOnly))
+        {
+            _pOpenPortButton->setEnabled(true);
+            _pOpenPortButton->setText("&Desconectar");
+
+            _iTimerID = startTimer(500);
+        }
+        else
+        {
+            _pOpenPortButton->setEnabled(true);
+            _pControlsWidget->setEnabled(true);
+        }
+    };
+
+    connect(_pOpenPortButton, &QPushButton::clicked, openSlot);
 
     pLayout->addWidget(pTitleLabel);
     pLayout->addWidget(_pTextEdit);
