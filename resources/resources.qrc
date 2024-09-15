@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>styles.qss</file>
         <file>s9art.png</file>
+        <file>app-icons/serialport-gui.png</file>
     </qresource>
 </RCC>
