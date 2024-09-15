@@ -50,7 +50,9 @@ MainWindow QPushButton:disabled {
     color: #999999;
 }
 
-MainWindow QPushButton:focus {
+MainWindow QPushButton:focus,
+MainWindow QTextEdit:focus
+ {
     outline: none;
 }
 
@@ -81,6 +83,21 @@ MainWindow QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
 MainWindow QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
     background-color: transparent;
     border: 0;
+}
+
+MainWindow QSpinBox::down-button {
+    background: #ffffff;
+    image: none;
+}
+
+MainWindow QSpinBox::up-button {
+    background: #ffffff;
+    image: none;
+}
+
+MainWindow QWidget:disabled {
+    border-color: #f0f1f2;
+    color: #c4c6cc;
 }
 
 VersionWidget QPushButton,

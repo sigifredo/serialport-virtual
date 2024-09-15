@@ -20,6 +20,7 @@ protected:
     void dataRead(const QString &sData) override;
 
 private:
+    QWidget *_pControlsWidget;
     QPushButton *_pOpenPortButton;
     QLineEdit *_pSerialPortLineEdit;
     QTextEdit *_pTextEdit;

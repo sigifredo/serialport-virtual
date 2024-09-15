@@ -18,6 +18,7 @@
 
 #define CONNECT_TEXT "&Conectar"
 #define DISCONNECT_TEXT "&Desconectar"
+#define PORT_NAME "/dev/pts/6"
 
 SendPortWidget::SendPortWidget(QWidget *pParent) : PortWidget(pParent)
 {
@@ -92,8 +93,8 @@ void SendPortWidget::configGUI()
         {
             QBoxLayout *pLayout = new QBoxLayout(QBoxLayout::LeftToRight, pPortPathWidget);
 
-            QLabel *pPortLabel = new QLabel("Puerto:", pPortPathWidget);
-            _pSerialPortLineEdit = new QLineEdit("/dev/pts/6", pPortPathWidget);
+            QLabel *pPortLabel = new QLabel("Puerto", pPortPathWidget);
+            _pSerialPortLineEdit = new QLineEdit(PORT_NAME, pPortPathWidget);
 
             pLayout->addWidget(pPortLabel);
             pLayout->addWidget(_pSerialPortLineEdit);
